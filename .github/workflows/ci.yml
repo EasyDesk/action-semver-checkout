@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - id: semver
-        uses: EasyDesk/action-semver-checkout@v0.2
+        uses: EasyDesk/action-semver-checkout@v0.2.5
       - if: ${{ steps.semver.outputs.should-release == 'true' }}
         uses: EasyDesk/action-semver-release@v0.2
         with:
