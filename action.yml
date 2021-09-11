@@ -58,6 +58,9 @@ outputs:
   build:
     description: The build version.
     value: ${{ steps.compute-version.outputs.build }}
+  should-release:
+    description: Whether or not this workflow run should create a release on GitHub.
+    value: ${{ steps.compute-version.outputs.is-dev-version == 'false' && steps.event-inspection.outputs.is-tag-event == 'true' }}
 
 runs:
   using: composite
@@ -75,3 +78,7 @@ runs:
       name: Compute version
       shell: bash
       run: ./git-compute-version.sh
+    - id: event-inspection
+      name: Inspect event
+      shell: bash
+      run: echo "::set-output name=is-tag-event::${{ startsWith(github.ref, 'refs/tags/') }}"
