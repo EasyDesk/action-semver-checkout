@@ -11,8 +11,11 @@ jobs:
     name: GitHub Release Job
     runs-on: ubuntu-20.04
     steps:
-      - id: semver
-        uses: ./
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Compute semantic version
+        id: semver
+        uses: .
       - name: Release
         if: ${{ steps.semver.outputs.should-release == 'true' }}
         uses: EasyDesk/action-semver-release@v0.2
