@@ -1,5 +1,5 @@
 DESCRIBE_REGEX='^(.+)-(.+)-g(.+)$'
-SEMVER_REGEX='^v([1-9]\d*|0).([1-9]\d*|0).([1-9]\d*|0)$'
+SEMVER_REGEX='^v([1-9]\d*|0)\.([1-9]\d*|0)\.([1-9]\d*|0)$'
 IS_DEV_VERSION="true"
 
 DESCRIBE_RES=`git describe --long --abbrev=8 --match 'v[0-9]*.[0-9]*.[0-9]*' 2> /dev/null`
