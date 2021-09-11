@@ -1,0 +1,77 @@
+name: Semantic Versioning Checkout
+description: Checkout a complete git repository and compute semantic versioning info based on tags and history.
+
+branding:
+  color: gray-dark
+  icon: tag
+
+inputs:
+  repository:
+    description: Repository name with owner (e.g. EasyDesk/action-semver-checkout)
+    required: false
+    default: ${{ github.repository }}
+  token:
+    description: >
+      Personal access token (PAT) used to fetch the repository. The PAT is configured
+      with the local git config, which enables your scripts to run authenticated git
+      commands. The post-job step removes the PAT.
+      We recommend using a service account with the least permissions necessary.
+      Also when generating a new PAT, select the least scopes necessary.
+      [Learn more about creating and using encrypted secrets](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets)
+    required: false
+    default: ${{ github.token }}
+  clean:
+    description: 'Whether to execute `git clean -ffdx && git reset --hard HEAD` before fetching'
+    required: false
+    default: 'true'
+  lfs:
+    description: 'Whether to download Git-LFS files'
+    required: false
+    default: 'false'
+  submodules:
+    description: >
+      true: checkout submodules
+      false: don't checkout submodules
+      recursive: recursively checkout submodules
+    required: false
+    default: 'false'
+
+outputs:
+  version:
+    description: The semantic version of the current state of the repository.
+    value: ${{ steps.compute-version.outputs.version }}
+  is-dev-version:
+    description: Whether or not this version is a development only version (i.e. version is in the form 'X.Y.Z-dev.C+H').
+    value: ${{ steps.compute-version.outputs.is-dev-version }}
+  major:
+    description: The major version.
+    value: ${{ steps.compute-version.outputs.major }}
+  minor:
+    description: The minor version.
+    value: ${{ steps.compute-version.outputs.minor }}
+  patch:
+    description: The patch version.
+    value: ${{ steps.compute-version.outputs.patch }}
+  prerelease:
+    description: The prerelease version.
+    value: ${{ steps.compute-version.outputs.prerelease }}
+  build:
+    description: The build version.
+    value: ${{ steps.compute-version.outputs.build }}
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        repository: ${{ inputs.repository }}
+        token: ${{ inputs.token }}
+        clean: ${{ inputs.clean }}
+        lfs: ${{ inputs.lfs }}
+        fetch-depth: 0
+        recursive: ${{ inputs.submodules }}
+    - id: compute-version
+      name: Compute version
+      shell: bash
+      run: ./git-compute-version.sh
