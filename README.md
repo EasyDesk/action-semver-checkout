@@ -1,0 +1,1 @@
+# action-semver-checkout
