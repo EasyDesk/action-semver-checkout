@@ -8,19 +8,11 @@ on:
 
 concurrency: new-tag
 jobs:
-  release-checks:
-    name: Release Checks
-    runs-on: ubuntu-20.04
-    outputs:
-      should-release: ${{ steps.semver.outputs.should-release }}
-    steps:
-      - id: semver
-        name: Semantic Version Checks
-        uses: EasyDesk/action-sem-ver-checks@v0
   release:
     name: GitHub Release Job
-    if: ${{ needs.release-checks.outputs.should-release == 'true' }}
-    needs: [release-checks]
     runs-on: ubuntu-20.04
     steps:
-      - uses: EasyDesk/action-sem-ver-release@v0
+      - id: semver
+        uses: EasyDesk/action-semver-checkout@v0
+      - if: ${{ steps.semver.outputs.should-release == 'true' }}
+        uses: EasyDesk/action-sem-ver-release@v0
