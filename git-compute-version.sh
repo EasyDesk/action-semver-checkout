@@ -17,6 +17,7 @@ elif [[ "${DESCRIBE_RES}" =~ ${DESCRIBE_REGEX} ]] ; then
     MINOR=${BASH_REMATCH[2]}
     PATCH=${BASH_REMATCH[3]}
     VERSION="${MAJOR}.${MINOR}.${PATCH}"
+
     if [ ${COMMIT_DISTANCE} == 0 ] ; then
       IS_DEV_VERSION="false"
     fi
@@ -29,8 +30,15 @@ else
 fi
 
 if [ $IS_DEV_VERSION == 'true' ] ; then
-  VERSION="${VERSION}-dev.${COMMIT_DISTANCE}+${COMMIT_HASH}"
+  PRERELEASE="dev.${COMMIT_DISTANCE}"
+  BUILD="${COMMIT_HASH}"
+  VERSION="${VERSION}-${PRERELEASE}+${BUILD}"
 fi
 
+echo "::set-output name=major::${MAJOR}"
+echo "::set-output name=minor::${MINOR}"
+echo "::set-output name=patch::${PATCH}"
+echo "::set-output name=prerelease::${PRERELEASE}"
+echo "::set-output name=build::${BUILD}"
 echo "::set-output name=version::${VERSION}"
 echo "::set-output name=is-dev-version::${IS_DEV_VERSION}"
