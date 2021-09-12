@@ -26,12 +26,12 @@ else
   exit 1
 fi
 
-echo "::debug::Repository is now at version ${VERSION}"
+echo "Repository is now at version ${VERSION}"
 if [ ${IS_DEV_VERSION} == "true" ] ; then
   PRERELEASE="dev.${COMMIT_DISTANCE}"
   BUILD="${COMMIT_HASH}"
   VERSION="${VERSION}-${PRERELEASE}+${BUILD}"
-  echo "::debug::Current version is a dev-only version and shall not be released"
+  echo "Current version is a dev-only version and shall not be released"
 fi
 
 echo "::set-output name=major::${MAJOR}"
