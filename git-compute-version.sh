@@ -12,7 +12,7 @@ elif [[ "${DESCRIBE_RES}" =~ ${DESCRIBE_REGEX} ]] ; then
   COMMIT_DISTANCE=${BASH_REMATCH[2]}
   COMMIT_HASH=${BASH_REMATCH[3]}
 
-  if [[ "$TAG" =~ $SEMVER_REGEX ]] ; then
+  if [[ "${TAG}" =~ ${SEMVER_REGEX} ]] ; then
     MAJOR=${BASH_REMATCH[1]}
     MINOR=${BASH_REMATCH[2]}
     PATCH=${BASH_REMATCH[3]}
@@ -29,10 +29,12 @@ else
   exit 1
 fi
 
-if [ $IS_DEV_VERSION == 'true' ] ; then
+echo "::info ::Repository is now at version ${VERSION}"
+if [ ${IS_DEV_VERSION} == "true" ] ; then
   PRERELEASE="dev.${COMMIT_DISTANCE}"
   BUILD="${COMMIT_HASH}"
   VERSION="${VERSION}-${PRERELEASE}+${BUILD}"
+  echo "::info ::Current version is a dev-only version and shall not be released"
 fi
 
 echo "::set-output name=major::${MAJOR}"
