@@ -15,11 +15,13 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Compute semantic version
-        id: semver
-        uses: ./
+      - id: compute-version
+        name: Compute version
+        run: |
+          chmod +x ./git-compute-version.sh
+          ./git-compute-version.sh
       - name: Release
-        if: ${{ steps.semver.outputs.should-release == 'true' }}
+        if: ${{ steps.compute-version.outputs.is-dev-version == 'false' }}
         uses: EasyDesk/action-semver-release@v0.2
         with:
-          version: ${{ steps.semver.outputs.version }}
+          version: ${{ steps.compute-version.outputs.version }}
