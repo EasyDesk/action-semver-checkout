@@ -7,8 +7,6 @@ if [ $? != 0 ] ; then
   VERSION="0.1.0"
 elif [[ "${DESCRIBE_RES}" =~ ^(.+)-(.+)-g(.+)$ ]] ; then
   echo "Git describe returned ${DESCRIBE_RES}"
-  echo "Tags currently in the history:"
-  git tag
 
   TAG=${BASH_REMATCH[1]}
   COMMIT_DISTANCE=${BASH_REMATCH[2]}
@@ -35,9 +33,12 @@ if [ ${IS_DEV_VERSION} == "true" ] ; then
   PRERELEASE="dev.${COMMIT_DISTANCE}"
   BUILD="${COMMIT_HASH}"
   VERSION="${VERSION}-${PRERELEASE}+${BUILD}"
+fi
+
+echo "Repository is now at version ${VERSION}"
+if [ ${IS_DEV_VERSION} == "true" ] ; then
   echo "Current version is a dev-only version and shall not be released"
 fi
-echo "Repository is now at version ${VERSION}"
 
 echo "::set-output name=major::${MAJOR}"
 echo "::set-output name=minor::${MINOR}"
