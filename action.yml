@@ -78,6 +78,7 @@ runs:
       name: Compute version
       shell: bash
       run: |
+        git fetch --tags --force # Required due to: https://github.com/actions/checkout/issues/290
         chmod +x ./git-compute-version.sh
         ./git-compute-version.sh
     - id: event-inspection
