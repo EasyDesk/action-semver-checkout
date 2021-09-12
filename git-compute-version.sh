@@ -1,10 +1,15 @@
 IS_DEV_VERSION="true"
 DESCRIBE_RES=`git describe --long --abbrev=8 --match 'v[0-9]*.[0-9]*.[0-9]*' 2> /dev/null`
+
 if [ $? != 0 ] ; then
   COMMIT_DISTANCE=`git rev-list --count HEAD`
   COMMIT_HASH=`git log -n1 --format=%h`
   VERSION="0.1.0"
 elif [[ "${DESCRIBE_RES}" =~ ^(.+)-(.+)-g(.+)$ ]] ; then
+  echo "Git describe returned ${DESCRIBE_RES}"
+  echo "Tags currently in the history:"
+  git tag
+
   TAG=${BASH_REMATCH[1]}
   COMMIT_DISTANCE=${BASH_REMATCH[2]}
   COMMIT_HASH=${BASH_REMATCH[3]}
