@@ -60,7 +60,10 @@ outputs:
     value: ${{ steps.compute-version.outputs.build }}
   should-release:
     description: Whether or not this workflow run should create a release on GitHub.
-    value: ${{ steps.compute-version.outputs.is-dev-version == 'false' && steps.event-inspection.outputs.is-tag-event == 'true' }}
+    value: ${{ steps.compute-version.outputs.is-dev-version == 'false' && startsWith(github.ref, 'refs/tags/') }}
+  is-github-prerelease:
+    description: Whether or not this release should be marked as a prerelease on GitHub.
+    value: ${{ steps.compute-version.outputs.is-dev-version == 'true' || steps.compute-version.outputs.major == '0' }}
 
 runs:
   using: composite
@@ -81,7 +84,3 @@ runs:
         git fetch --tags --force # Required due to: https://github.com/actions/checkout/issues/290
         chmod +x ./git-compute-version.sh
         ./git-compute-version.sh
-    - id: event-inspection
-      name: Inspect event
-      shell: bash
-      run: echo "::set-output name=is-tag-event::${{ startsWith(github.ref, 'refs/tags/') }}"
