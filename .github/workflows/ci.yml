@@ -20,7 +20,7 @@ jobs:
         uses: ./
       - name: Release
         if: ${{ steps.compute-version.outputs.should-release == 'true' }}
-        uses: EasyDesk/action-semver-release@v0
+        uses: EasyDesk/action-semver-release@v1
         with:
           version: ${{ steps.compute-version.outputs.version }}
           prerelease: ${{ steps.compute-version.outputs.is-github-prerelease }}
