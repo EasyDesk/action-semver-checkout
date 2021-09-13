@@ -1,10 +1,12 @@
+#!/bin/bash
+
 IS_DEV_VERSION="true"
 DESCRIBE_RES=`git describe --long --abbrev=8 --match 'v[0-9]*.[0-9]*.[0-9]*' 2> /dev/null`
 
 if [[ $? != 0 ]] ; then
   COMMIT_DISTANCE=`git rev-list --count HEAD`
   COMMIT_HASH=`git log -n1 --format=%h`
-  VERSION="0.1.0"
+  VERSION="v0.1.0"
 elif [[ "${DESCRIBE_RES}" =~ ^(.+)-(.+)-g(.+)$ ]] ; then
   echo "Git describe returned ${DESCRIBE_RES}"
 
@@ -16,7 +18,7 @@ elif [[ "${DESCRIBE_RES}" =~ ^(.+)-(.+)-g(.+)$ ]] ; then
     MAJOR=${BASH_REMATCH[1]}
     MINOR=${BASH_REMATCH[2]}
     PATCH=${BASH_REMATCH[3]}
-    VERSION="${MAJOR}.${MINOR}.${PATCH}"
+    VERSION="v${MAJOR}.${MINOR}.${PATCH}"
 
     if [[ ${COMMIT_DISTANCE} == 0 ]] ; then
       IS_DEV_VERSION="false"
