@@ -2,7 +2,7 @@
 An action that can be used to checkout repos instead of the classic `actions/checkout`.
 This action fetches the complete history of the reporitory, then inspects the history in order to 
 compute the correct current version with [Semantic Versioning](https://semver.org/).
-It alsos inspects the github event in order to determine whether the current run should trigger a release.
+It also inspects the github event in order to determine whether the current run should trigger a release.
 
 
 ## Usage
