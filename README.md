@@ -13,11 +13,7 @@ This action requires that the tags containing and representing a new version of 
     steps:
       - id: semver-checkout # The id field is necessary to capture the action's outputs
         uses: EasyDesk/action-semver-checkout@v1
-        with:
-          # (Optional) The root where the 'dotnet test' command should look for a project or a solution.
-          # If not specified, defaults to the current directory.
-          path: '<path-to-test-project>'
-          
+        with:          
           # (Optional) Repository name with owner (e.g. EasyDesk/action-semver-checkout)
           # If not specified, defaults to ${{ github.repository }}.
           repository: <repo-owner>/<repo-name>
