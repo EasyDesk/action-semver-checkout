@@ -31,6 +31,7 @@ else
   exit 1
 fi
 
+COMPLETE_VERSION="${VERSION}"
 if [[ ${IS_DEV_VERSION} == "true" ]] ; then
   PRERELEASE="dev.${COMMIT_DISTANCE}"
   BUILD="${COMMIT_HASH}"
