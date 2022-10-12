@@ -43,11 +43,11 @@ if [[ ${IS_DEV_VERSION} == "true" ]] ; then
   echo "Current version is a dev-only version and shall not be released"
 fi
 
-echo "::set-output name=major::${MAJOR}"
-echo "::set-output name=minor::${MINOR}"
-echo "::set-output name=patch::${PATCH}"
-echo "::set-output name=prerelease::${PRERELEASE}"
-echo "::set-output name=build::${BUILD}"
-echo "::set-output name=version::v${COMPLETE_VERSION}"
-echo "::set-output name=version-without-v::${COMPLETE_VERSION}"
-echo "::set-output name=is-dev-version::${IS_DEV_VERSION}"
+echo "{major}={${MAJOR}}" >> $GITHUB_OUTPUT
+echo "{minor}={${MINOR}}" >> $GITHUB_OUTPUT
+echo "{patch}={${PATCH}}" >> $GITHUB_OUTPUT
+echo "{version}={${VERSION}}" >> $GITHUB_OUTPUT
+echo "{prerelease}={${PRERELEASE}}" >> $GITHUB_OUTPUT
+echo "{build}={${BUILD}}" >> $GITHUB_OUTPUT
+echo "{complete_version}={${COMPLETE_VERSION}}" >> $GITHUB_OUTPUT
+echo "{is_dev_version}={${IS_DEV_VERSION}}" >> $GITHUB_OUTPUT
