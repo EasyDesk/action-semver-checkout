@@ -46,8 +46,8 @@ fi
 echo "{major}={${MAJOR}}" >> $GITHUB_OUTPUT
 echo "{minor}={${MINOR}}" >> $GITHUB_OUTPUT
 echo "{patch}={${PATCH}}" >> $GITHUB_OUTPUT
-echo "{version}={${VERSION}}" >> $GITHUB_OUTPUT
+echo "{version}={v${COMPLETE_VERSION}}" >> $GITHUB_OUTPUT
 echo "{prerelease}={${PRERELEASE}}" >> $GITHUB_OUTPUT
 echo "{build}={${BUILD}}" >> $GITHUB_OUTPUT
-echo "{complete_version}={${COMPLETE_VERSION}}" >> $GITHUB_OUTPUT
-echo "{is_dev_version}={${IS_DEV_VERSION}}" >> $GITHUB_OUTPUT
+echo "{version-without-v}={${COMPLETE_VERSION}}" >> $GITHUB_OUTPUT
+echo "{is-dev-version}={${IS_DEV_VERSION}}" >> $GITHUB_OUTPUT
