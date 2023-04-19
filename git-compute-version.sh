@@ -7,6 +7,9 @@ if [[ $? != 0 ]] ; then
   COMMIT_DISTANCE=`git rev-list --count HEAD`
   COMMIT_HASH=`git log -n1 --format=%h`
   VERSION="0.1.0"
+  MAJOR="0"
+  MINOR="1"
+  PATCH="0"
 elif [[ "${DESCRIBE_RES}" =~ ^(.+)-(.+)-g(.+)$ ]] ; then
   echo "Git describe returned ${DESCRIBE_RES}"
 
