@@ -40,8 +40,9 @@ This action requires that the tags containing and representing a new version of 
       # Outputs usage example
       - uses: .../...@...
         with:
-          ...: ${{ steps.semver-checkout.outputs.version }}              # Semantic version with the 'v' prefix
-          ...: ${{ steps.semver-checkout.outputs.version-without-v }}    # Semantic version without the 'v' prefix
+          ...: ${{ steps.semver-checkout.outputs.version }}              # Semantic version without the 'v' prefix
+          ...: v${{ steps.semver-checkout.outputs.version }} 
+          # Semantic version with the 'v' prefix
           ...: ${{ steps.semver-checkout.outputs.is-dev-version }}       # 'true' if version is a dev build (untagged commit)
           ...: ${{ steps.semver-checkout.outputs.major }}                # Major version
           ...: ${{ steps.semver-checkout.outputs.minor }}                # Minor version
