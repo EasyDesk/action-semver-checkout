@@ -39,7 +39,7 @@ inputs:
 outputs:
   version:
     description: The semantic version of the current state of the repository.
-    value: ${{ steps.compute-version.outputs.version }}
+    value: ${{ steps.compute-version.outputs.version-without-v }}
   is-dev-version:
     description: Whether or not this version is a development only version (i.e. version is in the form 'X.Y.Z-dev.C+H').
     value: ${{ steps.compute-version.outputs.is-dev-version }}
